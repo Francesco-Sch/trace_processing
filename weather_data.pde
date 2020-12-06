@@ -26,6 +26,9 @@ float temperature;
 float temperatureHue;
 color weatherColor;
 
+// Load weather graphics
+PShape sonne;
+
 void retrieveWeatherData() {
   String querys = "?lat=" + latitude + "&lon=" + longitude + "&units=" + units;
   
@@ -101,4 +104,13 @@ void weatherColor() {
   
   // Defines fill color with the weatherColor
   fill(weatherColor);
+}
+
+void loadWeatherShapes() {
+  sonne = loadShape("sonne.svg");
+}
+
+void drawWeatherShapes() {
+  shape(sonne, 0, 0, 750, 750);
+  sonne.disableStyle();
 }

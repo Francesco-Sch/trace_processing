@@ -12,8 +12,9 @@ void setup() {
   // Setup drawing
   displayDayOrNight();
   weatherColor();
+  loadWeatherShapes();
 }
 
 void draw() {
-  ellipse(width/2, height/2, 500, 500);
+  drawWeatherShapes();
 }
