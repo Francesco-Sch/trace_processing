@@ -2,14 +2,14 @@ void setup() {
   // Display config
   fullScreen();
   orientation(PORTRAIT);
-  frameRate(1);
+  frameRate(30);
   
   // Getting data
   retrieveWeatherData();
+  
+  // Setup drawing
+  displayWeather();
 }
 
 void draw() {
-  displayWeather();
-  //println(hour());
-  //println(minute());
 }
