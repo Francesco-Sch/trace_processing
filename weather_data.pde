@@ -11,14 +11,14 @@ JSONObject weather;
 float latitude = 50.011; 
 float longitude = 8.259;
  
-// Get current time
+// Current time
 float currentTime;
 int currentHour = hour();
 int currentMinute = minute();
 int currentSecond = second();
 String sCurrentHour, sCurrentMinute, sCurrentSecond;
 
-// Current degrees
+// Current degrees & weather color
 float degress = 0;
 float minTemperature = 120;
 float maxTemperature = 240;
@@ -83,16 +83,22 @@ void displayDayOrNight() {
 }
 
 void weatherColor() {
+  // Get current temperature
   temperature = weather.getJSONObject("main").getFloat("temp");
   
   println(temperature);
   
+  // Check if temperature is above maximum temperature
   if((temperature + minTemperature) > maxTemperature) {
     temperatureHue = maxTemperature;
   } else {
+    // Sets minimum temperature 
     temperatureHue = temperature + minTemperature;
   }
   
-  weatherColor = color(temperatureHue, 100, 100);
+  // Defines color based on current temperature
+  weatherColor = color(temperatureHue, 80, 100);
+  
+  // Defines fill color with the weatherColor
   fill(weatherColor);
 }

@@ -3,7 +3,7 @@ void setup() {
   fullScreen();
   orientation(PORTRAIT);
   frameRate(30);
-  colorMode(HSB, 240, 70, 100);
+  colorMode(HSB, 240, 100, 100);
   noStroke();
   
   // Getting data
