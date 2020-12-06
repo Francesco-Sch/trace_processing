@@ -76,11 +76,11 @@ void displayDayOrNight() {
   // Display if it is day or night
   if(currentTime < formattedSunrise || currentTime > formattedSunset) {
     // Sets background to night
-    background(7, 4, 24);
+    background(#070418);
     println("It is night");
   } else {
     // Sets background to day
-    background(255);
+    background(#ffffff);
     println("It is day");
   }
 }
