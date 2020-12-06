@@ -3,6 +3,7 @@ import java.text.DateFormat;
 
 String http = "https://";
 String url = "api.openweathermap.org/data/2.5/weather";
+String units = "metric";
 String apiKey = weatherApiKey;
 JSONObject weather;
 
@@ -17,7 +18,7 @@ int currentMinute = minute();
 int currentSecond = second();
 
 void retrieveWeatherData() {
-  String querys = "?lat=" + latitude + "&lon=" + longitude;
+  String querys = "?lat=" + latitude + "&lon=" + longitude + "&units=" + units;
   
   weather = loadJSONObject(http + url + querys + "&appid=" + apiKey);
 }
