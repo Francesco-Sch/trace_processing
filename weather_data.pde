@@ -3,7 +3,7 @@ import java.text.DateFormat;
 
 String http = "https://";
 String url = "api.openweathermap.org/data/2.5/weather";
-String apiKey = "19997ff01b342a2d9c405b652d7b6776";
+String apiKey = weatherApiKey;
 JSONObject weather;
 
 // Mainz: 50.011, 8.259
@@ -41,12 +41,16 @@ void displayWeather() {
   String stringCurrentTime = currentHour + "" + currentMinute + "" + currentSecond;
   float currentTime = float(stringCurrentTime);
   
+  println("CurrentTime: " + currentTime + " ; Sunrise: " + formattedSunrise + " ; Sunset: " + formattedSunset);
+  
   // Display if it is day or night
   if(currentTime < formattedSunrise || currentTime > formattedSunset) {
     // Sets background to night
     background(7, 4, 24);
+    println("It is night");
   } else {
     // Sets background to day
     background(255);
+    println("It is day");
   }
 }
