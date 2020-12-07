@@ -18,6 +18,9 @@ int currentMinute = minute();
 int currentSecond = second();
 String sCurrentHour, sCurrentMinute, sCurrentSecond;
 
+// Background Color
+color backgroundColor;
+
 // Current degrees & weather color
 float degress = 0;
 float minTemperature = 120;
@@ -77,10 +80,12 @@ void displayDayOrNight() {
   if(currentTime < formattedSunrise || currentTime > formattedSunset) {
     // Sets background to night
     background(#070418);
+    backgroundColor = #070418;
     println("It is night");
   } else {
     // Sets background to day
     background(#ffffff);
+    backgroundColor = #ffffff;
     println("It is day");
   }
 }
@@ -88,8 +93,6 @@ void displayDayOrNight() {
 void weatherColor() {
   // Get current temperature
   temperature = weather.getJSONObject("main").getFloat("temp");
-  
-  println(temperature);
   
   // Check if temperature is above maximum temperature
   if((temperature + minTemperature) > maxTemperature) {
@@ -108,9 +111,10 @@ void weatherColor() {
 
 void loadWeatherShapes() {
   sonne = loadShape("sonne.svg");
+  sonne.disableStyle();
 }
 
 void drawWeatherShapes() {
-  shape(sonne, 0, 0, 750, 750);
-  sonne.disableStyle();
+  
+
 }
