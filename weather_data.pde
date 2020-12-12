@@ -109,12 +109,13 @@ void weatherColor() {
   fill(weatherColor);
 }
 
-void loadWeatherShapes() {
+void drawSun(float x, float y) {  
   sonne = loadShape("sonne.svg");
   sonne.disableStyle();
+  
+  shape(sonne, x, y, 750, 750);
 }
 
-void drawWeatherShapes() {
-  
-
+void drawWeatherShape() {
+  drawSun(width/2, height/2);
 }
