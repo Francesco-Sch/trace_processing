@@ -30,7 +30,7 @@ float temperatureHue;
 color weatherColor;
 
 // Load weather graphics
-PShape sonne;
+PShape sun;
 
 void retrieveWeatherData() {
   String querys = "?lat=" + latitude + "&lon=" + longitude + "&units=" + units;
@@ -110,10 +110,12 @@ void weatherColor() {
 }
 
 void drawSun(float x, float y) {  
-  sonne = loadShape("sonne.svg");
-  sonne.disableStyle();
+  sun = loadShape("sun_gradient.svg");
+  //sun.disableStyle();
   
-  shape(sonne, x, y, 750, 750);
+  println(sun);
+  
+  shape(sun, x, y, 750, 750);
 }
 
 void drawWeatherShape() {
