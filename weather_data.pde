@@ -80,12 +80,12 @@ void displayDayOrNight() {
   if(currentTime < formattedSunrise || currentTime > formattedSunset) {
     // Sets background to night
     background(#070418);
-    backgroundColor = #070418;
+    backgroundColor = color(100, 100, 100);
     println("It is night");
   } else {
     // Sets background to day
     background(#ffffff);
-    backgroundColor = #ffffff;
+    backgroundColor = color(50, 100, 100);
     println("It is day");
   }
 }
@@ -109,13 +109,27 @@ void weatherColor() {
   fill(weatherColor);
 }
 
+
+
 void drawSun(float x, float y) {  
   sun = loadShape("sun_gradient.svg");
-  //sun.disableStyle();
+  sun.disableStyle();
+  noStroke();
   
-  println(sun);
+  color c[] = new color[200];
   
-  shape(sun, x, y, 750, 750);
+  for(int i=2000;i>0;i-=10) {
+    float arrayStep = map(i, 2000, 0, 0, 200);
+    float step = map(i, 2000, 0, 0, 1);
+    
+    colorMode(RGB);
+    c[int(arrayStep)] = lerpColor(backgroundColor, weatherColor, step, 100);
+    
+    fill(c[int(arrayStep)]);
+    
+    shape(sun, x, y, i, i);
+  }
+  
 }
 
 void drawWeatherShape() {

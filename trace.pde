@@ -15,9 +15,8 @@ void setup() {
   displayDayOrNight();
   weatherColor();
   
-  drawWeatherShape();
+  drawWeatherShape(); 
 }
 
 void draw() {
-  
 }
