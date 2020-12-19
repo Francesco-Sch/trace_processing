@@ -31,6 +31,7 @@ float temperatureHue;
 // Load weather graphics
 PShape sun;
 PShape rain;
+PShape cloud;
 
 void retrieveWeatherData() {
   String querys = "?lat=" + latitude + "&lon=" + longitude + "&units=" + units;
@@ -134,6 +135,7 @@ void drawSun(int amount) {
   }
 }
 
+// Function for rendering rain shape
 void drawRainShape(float xPos, float yPos, int amount) {
   // Load rain shape
   rain = loadShape("rain.svg");
@@ -160,20 +162,61 @@ void drawRainShape(float xPos, float yPos, int amount) {
   }
 }
 
+// Function for drawing multiple rain shapes
+// and distributing them
 void drawRain(int amount) {
-  float[] xPos = new float[(amount + 1)];
-  float[] yPos = new float[(amount + 1)];
+  float[] xPos = new float[amount];
+  float[] yPos = new float[amount];
  
-  for(int i=0; i<=amount; i++) {
+  for(int i=0; i<amount; i++) {
     xPos[i] = random(width);
     yPos[i] = random(height);
     
-    drawRainShape(xPos[i], yPos[i], 75);
+    drawRainShape(xPos[i], yPos[i], 750);
+  }
+}
+
+// Function for drawing cloudy shapes
+void drawCloudShape(float xPos, float yPos, int amount) {
+  // Load cloud shape
+  cloud = loadShape("cloud.svg");
+  cloud.disableStyle();
+  noStroke();
+  
+  // Checks if it is night or day 
+  if(itIsNight == true) {
+    // Draws gradient from shape for night
+    for(int i=amount; i>0; i-=10) {
+      float c = map(i,amount,0,0,100);
+      
+      fill(temperatureHue, 100, c);
+      shape(cloud, xPos, yPos, i, i);
+    }
+  } else {
+    // Draws gradient from shape for day
+    for(int i=amount; i>0; i-=10) {
+      float c = map(i,amount,0,0,100);
+      
+      fill(temperatureHue, c, 100);
+      shape(cloud, xPos, yPos, i, i);
+    }
+  }
+}
+
+// Function for drawing two cloud shapes
+void drawClouds() {
+  // Position of cloud shapes
+  float[] xPos = {0, (width)};
+  float[] yPos = {(height/5), ((height/5)*4)};
+  
+  for(int i=0; i<2; i++) {
+    drawCloudShape(xPos[i], yPos[i], 3800);
   }
 }
 
 void drawWeatherShape() {
   // Draws the gradient shape
   //drawSun(2000);
-  drawRain(5);
+  //drawRain(5);
+  drawClouds();
 }
