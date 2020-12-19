@@ -18,8 +18,8 @@ int currentMinute = minute();
 int currentSecond = second();
 String sCurrentHour, sCurrentMinute, sCurrentSecond;
 
-// Background Color
-color backgroundColor;
+// Day or Night
+boolean itIsNight;
 
 // Current degrees & weather color
 float degress = 0;
@@ -27,7 +27,6 @@ float minTemperature = 120;
 float maxTemperature = 240;
 float temperature;
 float temperatureHue;
-color weatherColor;
 
 // Load weather graphics
 PShape sun;
@@ -79,13 +78,17 @@ void displayDayOrNight() {
   // Display if it is day or night
   if(currentTime < formattedSunrise || currentTime > formattedSunset) {
     // Sets background to night
-    background(#070418);
-    backgroundColor = color(100, 100, 100);
+    background(0,0,0); // black
+    
+    // Currently it is night
+    itIsNight = true;
     println("It is night");
   } else {
     // Sets background to day
-    background(#ffffff);
-    backgroundColor = color(50, 100, 100);
+    background(0,0,100); // white
+    
+    // Currently it is day
+    itIsNight = false;
     println("It is day");
   }
 }
@@ -95,43 +98,40 @@ void weatherColor() {
   temperature = weather.getJSONObject("main").getFloat("temp");
   
   // Check if temperature is above maximum temperature
+  // Sets hue for shape color
   if((temperature + minTemperature) > maxTemperature) {
     temperatureHue = maxTemperature;
   } else {
     // Sets minimum temperature 
     temperatureHue = temperature + minTemperature;
   }
-  
-  // Defines color based on current temperature
-  weatherColor = color(temperatureHue, 80, 100);
-  
-  // Defines fill color with the weatherColor
-  fill(weatherColor);
 }
 
-
-
-void drawSun(float x, float y) {  
+void drawSun(int amount) {  
   sun = loadShape("sun_gradient.svg");
   sun.disableStyle();
   noStroke();
+ 
+  float cDayOrNight;
   
-  color c[] = new color[200];
-  
-  for(int i=2000;i>0;i-=10) {
-    float arrayStep = map(i, 2000, 0, 0, 200);
-    float step = map(i, 2000, 0, 0, 1);
-    
-    colorMode(RGB);
-    c[int(arrayStep)] = lerpColor(backgroundColor, weatherColor, step, 100);
-    
-    fill(c[int(arrayStep)]);
-    
-    shape(sun, x, y, i, i);
+  // Checks if it is night or day 
+  // and sets color
+  if(itIsNight == true) {
+    cDayOrNight = 0;
+  } else {
+    cDayOrNight = 100;
   }
   
+  // Draws gradient from shape
+  for(int i=amount; i>0; i-=10) {
+    float c = map(i,amount,0,0,cDayOrNight);
+    
+    fill(temperatureHue, c, 100);
+    shape(sun, width/2, height/2, i, i);
+  }
 }
 
 void drawWeatherShape() {
-  drawSun(width/2, height/2);
+  // Draws the gradient shape
+  drawSun(2000);
 }
