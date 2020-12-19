@@ -215,8 +215,19 @@ void drawClouds() {
 }
 
 void drawWeatherShape() {
-  // Draws the gradient shape
-  //drawSun(2000);
-  //drawRain(5);
-  drawClouds();
+  String currentWeatherCondition = weather.getJSONArray("weather").getJSONObject(0).getString("main");
+ 
+  // Checks present weather condition
+  if(currentWeatherCondition == "Clouds") {
+    // Draws gradient shapes for clouds
+    drawClouds();
+  } else if(currentWeatherCondition == "Rain") {
+    // Draws gradient shapes for rain
+    drawRain(5);
+  } else {
+    // Draws gradient shapes for sun (or other weather conditions)
+    drawSun(2000);
+  }
+  
+  println(currentWeatherCondition);
 }
