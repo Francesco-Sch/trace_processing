@@ -108,26 +108,29 @@ void weatherColor() {
 }
 
 void drawSun(int amount) {  
-  sun = loadShape("sun_gradient.svg");
+  sun = loadShape("sun.svg");
   sun.disableStyle();
   noStroke();
  
   float cDayOrNight;
   
   // Checks if it is night or day 
-  // and sets color
   if(itIsNight == true) {
-    cDayOrNight = 0;
+    // Draws gradient from shape for night
+    for(int i=amount; i>0; i-=10) {
+      float c = map(i,amount,0,0,100);
+      
+      fill(temperatureHue, 100, c);
+      shape(sun, width/2, height/2, i, i);
+    }
   } else {
-    cDayOrNight = 100;
-  }
-  
-  // Draws gradient from shape
-  for(int i=amount; i>0; i-=10) {
-    float c = map(i,amount,0,0,cDayOrNight);
-    
-    fill(temperatureHue, c, 100);
-    shape(sun, width/2, height/2, i, i);
+    // Draws gradient from shape for day
+    for(int i=amount; i>0; i-=10) {
+      float c = map(i,amount,0,0,100);
+      
+      fill(temperatureHue, c, 100);
+      shape(sun, width/2, height/2, i, i);
+    }
   }
 }
 
