@@ -30,6 +30,7 @@ float temperatureHue;
 
 // Load weather graphics
 PShape sun;
+PShape rain;
 
 void retrieveWeatherData() {
   String querys = "?lat=" + latitude + "&lon=" + longitude + "&units=" + units;
@@ -108,11 +109,10 @@ void weatherColor() {
 }
 
 void drawSun(int amount) {  
+  // Load sun shape
   sun = loadShape("sun.svg");
   sun.disableStyle();
   noStroke();
- 
-  float cDayOrNight;
   
   // Checks if it is night or day 
   if(itIsNight == true) {
@@ -134,7 +134,46 @@ void drawSun(int amount) {
   }
 }
 
+void drawRainShape(float xPos, float yPos, int amount) {
+  // Load rain shape
+  rain = loadShape("rain.svg");
+  rain.disableStyle();
+  noStroke();
+  
+  // Checks if it is night or day 
+  if(itIsNight == true) {
+    // Draws gradient from shape for night
+    for(int i=amount; i>0; i-=10) {
+      float c = map(i,amount,0,0,100);
+      
+      fill(temperatureHue, 100, c);
+      shape(rain, xPos, yPos, i, i);
+    }
+  } else {
+    // Draws gradient from shape for day
+    for(int i=amount; i>0; i-=10) {
+      float c = map(i,amount,0,0,100);
+      
+      fill(temperatureHue, c, 100);
+      shape(rain, xPos, yPos, i, i);
+    }
+  }
+}
+
+void drawRain(int amount) {
+  float[] xPos = new float[(amount + 1)];
+  float[] yPos = new float[(amount + 1)];
+ 
+  for(int i=0; i<=amount; i++) {
+    xPos[i] = random(width);
+    yPos[i] = random(height);
+    
+    drawRainShape(xPos[i], yPos[i], 75);
+  }
+}
+
 void drawWeatherShape() {
   // Draws the gradient shape
-  drawSun(2000);
+  //drawSun(2000);
+  drawRain(5);
 }
