@@ -6,10 +6,6 @@ String url = "api.openweathermap.org/data/2.5/weather";
 String units = "imperial";
 String apiKey = weatherApiKey;
 JSONObject weather;
-
-// Mainz: 50.011, 8.259
-float latitude = 50.011; 
-float longitude = 8.259;
  
 // Current time
 float currentTime;
@@ -33,7 +29,7 @@ PShape sun;
 PShape rain;
 PShape cloud;
 
-void retrieveWeatherData() {
+void retrieveWeatherData() {  
   String querys = "?lat=" + latitude + "&lon=" + longitude + "&units=" + units;
   
   weather = loadJSONObject(http + url + querys + "&appid=" + apiKey);
@@ -107,8 +103,11 @@ void weatherColor() {
     // Sets minimum temperature 
     temperatureHue = temperature + minTemperature;
   }
+  
+  println(temperatureHue);
 }
 
+// Function for drawing sun shape
 void drawSun(int amount) {  
   // Load sun shape
   sun = loadShape("sun.svg");
@@ -230,4 +229,12 @@ void drawWeatherShape() {
   }
   
   println(currentWeatherCondition);
+}
+
+// Function for drawing weather visualization
+void weatherVisualization() {
+    retrieveWeatherData();
+    displayDayOrNight(); 
+    weatherColor();
+    drawWeatherShape();
 }
