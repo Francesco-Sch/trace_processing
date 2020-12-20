@@ -17,19 +17,17 @@ void setup() {
   colorMode(HSB, 240, 100, 100, 100);
   
   // Sets update rate for location event
-  // Fires onLocationEvent every 10mins or every 1km
+  // Fires onLocationEvent every 10000millis or every 1km
   location = new KetaiLocation(this);
   location.setUpdateRate(10000,1000);
 }
 
 void draw() {
   // Draws weather visualization on location event
-  if(locationChanged == true && timer == 600) {
+  if(locationChanged) {
     weatherVisualization();
     locationChanged = false;
   }
-  timer += 1/30;
-  println(timer);
 }
 
 
