@@ -1,10 +1,9 @@
 import ketai.sensors.*;
 KetaiLocation location;
 
-// Current Location
+// Current Location and location change
 double longitude, latitude;
 boolean locationChanged = false;
-float timer = 0;
 
 void setup() {
   // Display config
